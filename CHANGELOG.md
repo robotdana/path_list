@@ -1,3 +1,6 @@
+# v0.16.0
+- Remove relative: true/false, always return relative paths like git does.
+
 # v0.15.2
 - Updated methods with multiple `_` arguments to have different names to make sorbet happy
 
