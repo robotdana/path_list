@@ -2,16 +2,16 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'fast_ignore/version'
+require 'path_list/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'fast_ignore'
-  spec.version = FastIgnore::VERSION
+  spec.name = 'path_list'
+  spec.version = PathList::VERSION
   spec.authors = ['Dana Sherson']
   spec.email = ['robot@dana.sh']
 
   spec.summary = 'Parse gitignore files, quickly'
-  spec.homepage = 'https://github.com/robotdana/fast_ignore'
+  spec.homepage = 'https://github.com/robotdana/path_list'
   spec.license = 'MIT'
 
   spec.required_ruby_version = '>= 2.4.0'

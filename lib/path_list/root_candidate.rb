@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-class FastIgnore
+class PathList
   class RootCandidate
     attr_reader :full_path
 
@@ -12,7 +12,7 @@ class FastIgnore
     end
 
     def parent
-      @parent ||= ::FastIgnore::RootCandidate.new(
+      @parent ||= ::PathList::RootCandidate.new(
         ::File.dirname(@full_path),
         nil,
         true,
@@ -23,7 +23,7 @@ class FastIgnore
     def relative_to(dir)
       return unless @full_path.start_with?(dir)
 
-      ::FastIgnore::RelativeCandidate.new(@full_path.delete_prefix(dir), self)
+      ::PathList::RelativeCandidate.new(@full_path.delete_prefix(dir), self)
     end
 
     def directory?

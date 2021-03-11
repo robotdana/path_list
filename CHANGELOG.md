@@ -1,8 +1,9 @@
 # v0.16.0
 - Remove relative: true/false, always return relative paths like git does, its the only way i've ever used this gem
 - Remove follow_symlinks: true/false. it's inaccuurately named and unnecessary
-- relative paths to allowed? are expanded relative to the current dir not the FastIgnore.root dir.
+- relative paths to allowed? are expanded relative to the current dir not the PathList.root dir.
 - each starts at the current directory, or optionally a given directory
+- rename gem to path_list with everything in the constant PathList. I've renamed the gem because there's going to be a LOT of api changes soon.
 
 # v0.15.2
 - Updated methods with multiple `_` arguments to have different names to make sorbet happy
@@ -19,7 +20,7 @@
 
 # v0.14.0
 - significant performance improvements ~50% faster
-- add `FastIgnore#to_proc` for no good reason
+- add `PathList#to_proc` for no good reason
 
 # v0.13.0
 - Attempt to improve documentation structure
@@ -37,7 +38,7 @@
 - optionally pass directory: and content: into allowed? if these are already loaded.
 
 # v0.10.2
-- add FastIgnore#=== as an alias for FastIgnore#allowed? so that FastIgnore objects can be used for case statements.
+- add PathList#=== as an alias for PathList#allowed? so that PathList objects can be used for case statements.
 - Fix shebangs in non-pwd-root situations
 
 # v0.10.1
@@ -117,8 +118,8 @@
 
 # v0.2.0
 - Considers rules relative to the location of the gitignore file instead of just relative to PWD
-- Can override the path to the gitignore file, using `FastIgnore.new(gitignore: path)`
-- Mention FastIgnore#allowed? in the documentation.
+- Can override the path to the gitignore file, using `PathList.new(gitignore: path)`
+- Mention PathList#allowed? in the documentation.
 
 # v0.1.0
 Initial Release

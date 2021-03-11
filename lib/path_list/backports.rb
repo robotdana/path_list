@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   module Backports
     ruby_major, ruby_minor = ::RUBY_VERSION.split('.', 2)
     unless ruby_major.to_i > 2 || ruby_major.to_i == 2 && ruby_minor.to_i > 5

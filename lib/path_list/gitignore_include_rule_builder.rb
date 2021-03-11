@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   class GitignoreIncludeRuleBuilder < GitignoreRuleBuilder
     # :nocov:
-    using ::FastIgnore::Backports::DeletePrefixSuffix if defined?(::FastIgnore::Backports::DeletePrefixSuffix)
+    using ::PathList::Backports::DeletePrefixSuffix if defined?(::PathList::Backports::DeletePrefixSuffix)
     # :nocov:
 
     def initialize(rule, expand_path_with: nil)
@@ -28,7 +28,7 @@ class FastIgnore
     end
 
     def unmatchable_rule!
-      throw :abort_build, ::FastIgnore::Matchers::Unmatchable
+      throw :abort_build, ::PathList::Matchers::Unmatchable
     end
 
     def emit_end
@@ -48,10 +48,10 @@ class FastIgnore
       if @anchored
         parent_pattern = @s.string.dup
         if parent_pattern.sub!(%r{/[^/]+/?\s*\z}, '/')
-          ::FastIgnore::GitignoreIncludeRuleBuilder.new(parent_pattern).build_as_parent
+          ::PathList::GitignoreIncludeRuleBuilder.new(parent_pattern).build_as_parent
         end
       else
-        [::FastIgnore::Matchers::AllowAnyDir]
+        [::PathList::Matchers::AllowAnyDir]
       end
     end
 
@@ -65,9 +65,9 @@ class FastIgnore
       @child_re.prepend(prefix)
 
       if @negation
-        ::FastIgnore::Matchers::AllowPathRegexp.new(@child_re.to_regexp, @anchored, false)
+        ::PathList::Matchers::AllowPathRegexp.new(@child_re.to_regexp, @anchored, false)
       else
-        ::FastIgnore::Matchers::IgnorePathRegexp.new(@child_re.to_regexp, @anchored, false)
+        ::PathList::Matchers::IgnorePathRegexp.new(@child_re.to_regexp, @anchored, false)
       end
     end
 

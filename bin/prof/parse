@@ -10,8 +10,8 @@ GITIGNORE_DIRS = Dir.glob('**/.gitignore').map { |f| ::File.dirname(f) + '/' } -
 
 RubyProf.start
 
-require_relative '../../lib/fast_ignore'
-fi = FastIgnore.new(argv_rules: ARGV)
+require_relative '../../lib/path_list'
+fi = PathList.new(argv_rules: ARGV)
 GITIGNORE_DIRS.each do |gitignore_parent|
   fi.send(:load_gitignore, gitignore_parent, check_exists: false)
 end

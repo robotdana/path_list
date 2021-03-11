@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   module RuleBuilder
     class << self
       # :nocov:
-      using ::FastIgnore::Backports::DeletePrefixSuffix if defined?(::FastIgnore::Backports::DeletePrefixSuffix)
+      using ::PathList::Backports::DeletePrefixSuffix if defined?(::PathList::Backports::DeletePrefixSuffix)
       # :nocov:
 
       def build(rule, allow, format, root)
@@ -23,18 +23,18 @@ class FastIgnore
       def shebang_rules(shebang, allow)
         shebang.strip!
         pattern = /\A#![^\n]{,#{510 - shebang.length}}\b#{::Regexp.escape(shebang)}\b/i
-        rule = ::FastIgnore::Matchers::ShebangRegexp.new(pattern, allow)
+        rule = ::PathList::Matchers::ShebangRegexp.new(pattern, allow)
         return rule unless allow
 
         # also allow all directories in case they include a file with the matching shebang file
-        [::FastIgnore::Matchers::AllowAnyDir, rule]
+        [::PathList::Matchers::AllowAnyDir, rule]
       end
 
       def gitignore_rules(rule, allow, format, root)
         if allow
-          ::FastIgnore::GitignoreIncludeRuleBuilder.new(rule, expand_path_with: (root if format == :expand_path)).build
+          ::PathList::GitignoreIncludeRuleBuilder.new(rule, expand_path_with: (root if format == :expand_path)).build
         else
-          ::FastIgnore::GitignoreRuleBuilder.new(rule).build
+          ::PathList::GitignoreRuleBuilder.new(rule).build
         end
       end
     end

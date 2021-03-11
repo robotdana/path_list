@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-class FastIgnore
+class PathList
   class RelativeCandidate
     attr_reader :relative_path
 

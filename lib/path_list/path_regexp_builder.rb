@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   class PathRegexpBuilder < String
     def to_regexp
       # Regexp::IGNORECASE = 1

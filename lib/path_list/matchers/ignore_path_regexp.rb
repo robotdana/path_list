@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   module Matchers
     class IgnorePathRegexp
       attr_reader :dir_only

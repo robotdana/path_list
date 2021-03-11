@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   class RuleGroup
     def initialize(patterns, allow)
       @matchers = Array(patterns).flat_map { |x| x.build_matchers(include: allow) }.compact

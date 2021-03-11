@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   class GitignoreRuleBuilder # rubocop:disable Metrics/ClassLength
     def initialize(rule)
-      @re = ::FastIgnore::PathRegexpBuilder.new
-      @s = ::FastIgnore::GitignoreRuleScanner.new(rule)
+      @re = ::PathList::PathRegexpBuilder.new
+      @s = ::PathList::GitignoreRuleScanner.new(rule)
 
       @negation = false
       @anchored = false
@@ -158,7 +158,7 @@ class FastIgnore
     end
 
     def prefix
-      out = ::FastIgnore::PathRegexpBuilder.new
+      out = ::PathList::PathRegexpBuilder.new
 
       if @anchored
         out.append_start_anchor
@@ -171,9 +171,9 @@ class FastIgnore
     def build_rule
       @re.prepend(prefix)
       if @negation
-        ::FastIgnore::Matchers::AllowPathRegexp.new(@re.to_regexp, @anchored, @dir_only)
+        ::PathList::Matchers::AllowPathRegexp.new(@re.to_regexp, @anchored, @dir_only)
       else
-        ::FastIgnore::Matchers::IgnorePathRegexp.new(@re.to_regexp, @anchored, @dir_only)
+        ::PathList::Matchers::IgnorePathRegexp.new(@re.to_regexp, @anchored, @dir_only)
       end
     end
 

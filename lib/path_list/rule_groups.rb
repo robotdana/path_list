@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   class RuleGroups
     # :nocov:
-    using ::FastIgnore::Backports::DeletePrefixSuffix if defined?(::FastIgnore::Backports::DeletePrefixSuffix)
+    using ::PathList::Backports::DeletePrefixSuffix if defined?(::PathList::Backports::DeletePrefixSuffix)
     # :nocov:
 
     def initialize( # rubocop:disable Metrics/ParameterLists, Metrics/AbcSize, Metrics/MethodLength
@@ -17,23 +17,23 @@ class FastIgnore
     )
       @array = []
       if gitignore
-        @gitignore_rule_group = ::FastIgnore::GitignoreRuleGroup.new(root)
+        @gitignore_rule_group = ::PathList::GitignoreRuleGroup.new(root)
         @array << @gitignore_rule_group
       end
-      @array << ::FastIgnore::RuleGroup.new(::FastIgnore::Patterns.new(ignore_rules, root: root), false).freeze
-      @array << ::FastIgnore::RuleGroup.new(::FastIgnore::Patterns.new(include_rules, root: root), true).freeze
-      @array << ::FastIgnore::RuleGroup.new(
-        ::FastIgnore::Patterns.new(argv_rules, root: root, format: :expand_path),
+      @array << ::PathList::RuleGroup.new(::PathList::Patterns.new(ignore_rules, root: root), false).freeze
+      @array << ::PathList::RuleGroup.new(::PathList::Patterns.new(include_rules, root: root), true).freeze
+      @array << ::PathList::RuleGroup.new(
+        ::PathList::Patterns.new(argv_rules, root: root, format: :expand_path),
         true
       ).freeze
 
       Array(ignore_files).each do |f|
         path = ::File.expand_path(f, root)
-        @array << ::FastIgnore::RuleGroup.new(::FastIgnore::Patterns.new(from_file: path), false).freeze
+        @array << ::PathList::RuleGroup.new(::PathList::Patterns.new(from_file: path), false).freeze
       end
       Array(include_files).each do |f|
         path = ::File.expand_path(f, root)
-        @array << ::FastIgnore::RuleGroup.new(::FastIgnore::Patterns.new(from_file: path), true).freeze
+        @array << ::PathList::RuleGroup.new(::PathList::Patterns.new(from_file: path), true).freeze
       end
       @array.reject!(&:empty?)
       @array.sort_by!(&:weight)

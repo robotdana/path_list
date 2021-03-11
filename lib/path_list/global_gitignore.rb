@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   module GlobalGitignore
     class << self
       def path(root:)

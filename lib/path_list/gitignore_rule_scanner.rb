@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   class GitignoreRuleScanner < StringScanner
     def character_class_end?
       skip(/\]/)

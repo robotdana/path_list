@@ -1,6 +1,6 @@
 # frozen-string-literal: true
 
-class FastIgnore
+class PathList
   class Patterns
     def initialize(*patterns, from_file: nil, format: :gitignore, root: nil)
       raise ArgumentError, "from_file: can't be used with patterns arguments" unless patterns.empty? || !from_file
@@ -17,15 +17,15 @@ class FastIgnore
     end
 
     def build_matchers(include: false)
-      matchers = @patterns.flat_map { |p| ::FastIgnore::RuleBuilder.build(p, include, @format, @root) }
+      matchers = @patterns.flat_map { |p| ::PathList::RuleBuilder.build(p, include, @format, @root) }
 
       return if matchers.empty?
-      return [::FastIgnore::Matchers::WithinDir.new(matchers, @root)] unless include
+      return [::PathList::Matchers::WithinDir.new(matchers, @root)] unless include
 
       [
-        ::FastIgnore::Matchers::WithinDir.new(matchers, @root),
-        ::FastIgnore::Matchers::WithinDir.new(
-          ::FastIgnore::GitignoreIncludeRuleBuilder.new(@root).build_as_parent, '/'
+        ::PathList::Matchers::WithinDir.new(matchers, @root),
+        ::PathList::Matchers::WithinDir.new(
+          ::PathList::GitignoreIncludeRuleBuilder.new(@root).build_as_parent, '/'
         )
       ]
     end

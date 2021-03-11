@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FastIgnore
+class PathList
   module Matchers
     module AllowAnyDir
       class << self
