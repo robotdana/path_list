@@ -2,6 +2,10 @@
 
 class PathList
   class RootCandidate
+    # :nocov:
+    using ::PathList::Backports::DeletePrefixSuffix if defined?(::PathList::Backports::DeletePrefixSuffix)
+    # :nocov:
+
     attr_reader :full_path
 
     def initialize(full_path, filename, directory, content)
@@ -39,10 +43,10 @@ class PathList
     # how long can a shebang be?
     # https://www.in-ulm.de/~mascheck/various/shebang/
     # 512 feels like a reasonable limit
-    def first_line # rubocop:disable Metrics/MethodLength
+    def first_line
       @first_line ||= begin
         file = ::File.new(@full_path)
-        first_line = new_fragment = file.sysread(512)
+        first_line = file.sysread(512)
         file.close
         first_line || ''
       rescue ::EOFError, ::SystemCallError

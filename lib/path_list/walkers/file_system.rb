@@ -3,6 +3,10 @@
 class PathList
   module Walkers
     class FileSystem
+      # :nocov:
+      using ::PathList::Backports::DirEachChild if defined?(::PathList::Backports::DirEachChild)
+      # :nocov:
+
       def initialize(rule_groups)
         @rule_groups = rule_groups
       end
@@ -35,8 +39,10 @@ class PathList
             else
               yield relative_path
             end
+            # :nocov: TODO: add cov
           rescue ::Errno::ENOENT, ::Errno::EACCES, ::Errno::ENOTDIR, ::Errno::ELOOP, ::Errno::ENAMETOOLONG
             nil
+            # :nocov:
           end
         end
       end

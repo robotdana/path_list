@@ -284,18 +284,43 @@ RSpec.describe PathList do
       expect(subject).to allow_exactly('.gitignore', '.a', '.b/.c')
     end
 
-    it '#allowed? returns false nonexistent files' do
-      expect(subject.allowed?('utter/nonsense')).to be false
+    context 'with gitignore' do
+      it '#allowed? returns false nonexistent files' do
+        expect(subject.allowed?('utter/nonsense')).to be false
+      end
+
+      it '#allowed? can be shortcut with directory:' do
+        create_file_list 'a'
+        expect(subject.allowed?('a', directory: false)).to be true
+      end
+
+      it '#allowed? can be lied to with directory:' do
+        create_file_list 'a/b'
+        expect(subject.allowed?('a', directory: false)).to be true
+      end
     end
 
-    it '#allowed? can be shortcut with directory:' do
-      create_file_list 'a'
-      expect(subject.allowed?('a', directory: false)).to be true
-    end
+    context 'with not gitignore' do
+      let(:args) { { gitignore: false } }
 
-    it '#allowed? can be lied to with directory:' do
-      create_file_list 'a/b'
-      expect(subject.allowed?('a', directory: false)).to be true
+      it '#allowed? returns false nonexistent files' do
+        expect(subject.allowed?('utter/nonsense')).to be false
+      end
+
+      it '#allowed? can be shortcut with directory:' do
+        create_file_list 'a'
+        expect(subject.allowed?('a', directory: false)).to be true
+      end
+
+      it 'allowed? can be lied to positively about a directory' do
+        create_file_list 'a'
+        expect(subject.allowed?('a', directory: true)).to be false
+      end
+
+      it '#allowed? can be lied to with directory:' do
+        create_file_list 'a/b'
+        expect(subject.allowed?('a', directory: false)).to be true
+      end
     end
 
     it 'rescues soft links to nowhere' do

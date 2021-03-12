@@ -3,6 +3,10 @@
 class PathList
   module Walkers
     class GitignoreCollectingFileSystem
+      # :nocov:
+      using ::PathList::Backports::DirEachChild if defined?(::PathList::Backports::DirEachChild)
+      # :nocov:
+
       def initialize(rule_groups)
         @rule_groups = rule_groups
       end

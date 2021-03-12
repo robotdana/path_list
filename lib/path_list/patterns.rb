@@ -3,7 +3,10 @@
 class PathList
   class Patterns
     def initialize(*patterns, from_file: nil, format: :gitignore, root: nil)
+      # :nocov: TODO: add cov
       raise ArgumentError, "from_file: can't be used with patterns arguments" unless patterns.empty? || !from_file
+
+      # :nocov:
 
       @format = format
       if from_file

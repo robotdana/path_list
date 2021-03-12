@@ -2,10 +2,6 @@
 
 class PathList
   class RuleGroups
-    # :nocov:
-    using ::PathList::Backports::DeletePrefixSuffix if defined?(::PathList::Backports::DeletePrefixSuffix)
-    # :nocov:
-
     def initialize( # rubocop:disable Metrics/ParameterLists, Metrics/AbcSize, Metrics/MethodLength
       root:,
       ignore_rules: nil,

@@ -26,14 +26,7 @@ require_relative 'path_list/walkers/gitignore_collecting_file_system'
 require_relative 'path_list/gitignore_rule_group'
 
 class PathList
-  class Error < StandardError; end
-
   include ::Enumerable
-
-  # :nocov:
-  using ::PathList::Backports::DeletePrefixSuffix if defined?(::PathList::Backports::DeletePrefixSuffix)
-  using ::PathList::Backports::DirEachChild if defined?(::PathList::Backports::DirEachChild)
-  # :nocov:
 
   def initialize(root: nil, gitignore: :auto, **rule_group_builder_args)
     @root = "#{::File.expand_path(root.to_s, Dir.pwd)}/"
