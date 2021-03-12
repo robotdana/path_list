@@ -1,6 +1,6 @@
 # v0.16.0
 - Remove relative: true/false, always return relative paths like git does, its the only way i've ever used this gem
-- Remove follow_symlinks: true/false. it's inaccuurately named and unnecessary
+- Remove follow_symlinks: true/false. it's inaccurately named and unnecessary
 - relative paths to allowed? are expanded relative to the current dir not the PathList.root dir.
 - each starts at the current directory, or optionally a given directory
 - rename gem to path_list with everything in the constant PathList. I've renamed the gem because there's going to be a LOT of api changes soon.

@@ -27,6 +27,8 @@ github
 gitignore
 gitkeep
 hashbang
+i'm
+i've
 includefile
 janky
 jruby
